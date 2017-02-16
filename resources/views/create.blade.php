@@ -57,19 +57,21 @@
 @section('script')
 	<script>
 		$(document).ready(function () {
+			var i = 0;
 			$("#new_custom_field").click(function () {
+				i += 1;
 				$("#custom_fields").append(
 						'<div class="key_value_group">' +
 						'<div class="form-group">' +
 						'<label for="key" class="col-md-4 control-label">Key</label>' +
 						'<div class="col-md-6">' +
-						'<input id="key" type="text" class="form-control" name="key[]">' +
+						"<input id=\"key\" type=\"text\" class=\"form-control\" name=\"json["+i+"][key]\">" +
 						'</div>' +
 						'</div>' +
 						'<div class="form-group">' +
 						'<label for="value" class="col-md-4 control-label">Value</label>' +
 						'<div class="col-md-6">' +
-						'<input id="value" type="text" class="form-control" name="value[]">' +
+						"<input id=\"value\" type=\"text\" class=\"form-control\" name=\"json["+i+"][value]\">" +
 						'</div>' +
 						'</div>' +
 						'</div>' +

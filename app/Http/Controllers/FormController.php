@@ -15,7 +15,12 @@ class FormController extends Controller
      */
     public function index()
     {
-        return 'List data';
+        $entities = Entity::all()->toArray();
+        foreach ($entities as $point => $entity) {
+            $entities[$point]['json'] = unserialize($entity['json']);
+        }
+
+        return view('list', compact('entities'));
     }
 
     /**
@@ -25,7 +30,7 @@ class FormController extends Controller
      */
     public function create()
     {
-        return view('form');
+        return view('create');
     }
 
     /**
@@ -37,13 +42,12 @@ class FormController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'firstname' => 'required|max:255'
+            'name' => 'required|max:255'
         ]);
 
         $entity = new Entity();
         $entity->name = $request->get('name');
-        $json = array('key' => $request->get('key'), 'value' => $request->get('value'));
-        $entity->json = serialize($json);
+        $entity->json = serialize($request->get('json'));
         $entity->save();
 
         Session::flash('flash_message', 'New Entity has been created');
