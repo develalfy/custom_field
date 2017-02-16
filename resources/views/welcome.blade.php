@@ -83,7 +83,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('form.create') }}">Custom fields</a>
+                    <a href="{{ route('form.index') }}">List Entities</a>
+                    <a href="{{ route('form.create') }}">Add Entity</a>
                 </div>
             </div>
         </div>
