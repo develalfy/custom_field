@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
-					<div class="panel-heading">Create form</div>
+					<div class="panel-heading"><a href="{{ route('form.create') }}">Create form</a></div>
 
 					<div class="panel-body">
 						<table class="table">

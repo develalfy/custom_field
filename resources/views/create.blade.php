@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
-					<div class="panel-heading">Create form</div>
+					<div class="panel-heading"><a href="{{ route('form.index') }}">List form</a></div>
 
 					<div class="panel-body">
 						<form class="form-horizontal" id="simple_form" role="form" method="POST" action="{{ route('form.store') }}">
