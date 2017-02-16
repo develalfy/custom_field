@@ -21,17 +21,20 @@
 							</thead>
 							<tbody>
 							@foreach($entities as $key => $entity)
-								<tr>
+								<tr id="entity_row_{{$entity['id']}}">
 									<td>{{ $entity['name'] }}</td>
 									<td>
-										@foreach($entity['json'] as $jsonKey)
-											{{ $jsonKey['key'] }},
-										@endforeach
+										@if(!empty($entity['json']))
+											@foreach($entity['json'] as $jsonKey)
+												{{ $jsonKey['key'] }},
+											@endforeach
+										@else
+											Null
+										@endif
 									</td>
 									<td>
-										<a href="#">Edit</a>
-										-
-										<a href="#">Delete</a>
+										<a href="{{ route('form.edit', $entity['id']) }}">Edit</a> - <a href="#"
+										                                                                onclick="delete_entity({{$entity['id']}})">Delete</a>
 									</td>
 								</tr>
 							@endforeach
@@ -43,31 +46,24 @@
 		</div>
 	</div>
 @endsection
-
 @section('script')
 	<script>
-		$(document).ready(function () {
-			var i = 0;
-			$("#new_custom_field").click(function () {
-				i += 1;
-				$("#custom_fields").append(
-						'<div class="key_value_group">' +
-						'<div class="form-group">' +
-						'<label for="key" class="col-md-4 control-label">Key</label>' +
-						'<div class="col-md-6">' +
-						"<input id=\"key\" type=\"text\" class=\"form-control\" name=\"json[" + i + "][key]\">" +
-						'</div>' +
-						'</div>' +
-						'<div class="form-group">' +
-						'<label for="value" class="col-md-4 control-label">Value</label>' +
-						'<div class="col-md-6">' +
-						"<input id=\"value\" type=\"text\" class=\"form-control\" name=\"json[" + i + "][value]\">" +
-						'</div>' +
-						'</div>' +
-						'</div>' +
-						'<hr />'
-				);
+		function delete_entity(id) {
+			$.ajax({
+				url: 'form/' + id,
+				type: 'DELETE',
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success: function (result) {
+					if (result == "true"){
+						$("#entity_row_" + id).remove();
+						alert("Deleted successfully");
+					} else {
+						alert("Not deleted");
+					}
+				}
 			});
-		});
+		}
 	</script>
 @endsection

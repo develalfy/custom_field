@@ -96,6 +96,13 @@ class FormController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            Entity::destroy($id);
+        }
+        catch(\Exception $e){
+            return "false";
+        }
+
+        return "true";
     }
 }
