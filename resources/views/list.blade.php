@@ -22,7 +22,7 @@
 							<tbody>
 							@foreach($entities as $key => $entity)
 								<tr id="entity_row_{{$entity['id']}}">
-									<td>{{ $entity['name'] }}</td>
+									<td><a href="{{ route('form.show', $entity['id']) }}">{{ $entity['name'] }}</a></td>
 									<td>
 										@if(!empty($entity['json']))
 											@foreach($entity['json'] as $jsonKey)

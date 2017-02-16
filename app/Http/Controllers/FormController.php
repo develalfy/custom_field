@@ -62,7 +62,17 @@ class FormController extends Controller
      */
     public function show($id)
     {
-        //
+        $entity = array();
+        $entityObj = Entity::find($id)->toArray();
+        foreach ($entityObj as $key => $item) {
+            if ($key == 'json') {
+                $entity[$key] = unserialize($item);
+            }else{
+                $entity[$key] = $item;
+            }
+        }
+
+        return view('show', compact('entity'));
     }
 
     /**
